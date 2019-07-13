@@ -50,4 +50,14 @@ public class CommentEvent {
     public void setMessage(String message) {
         this.message = message;
     }
+
+    @Override
+    public String toString() {
+        return "CommentEvent{" +
+                "idCommentEvent=" + idCommentEvent +
+                ", idEvent=" + idEvent +
+                ", date=" + date +
+                ", message='" + message + '\'' +
+                '}';
+    }
 }

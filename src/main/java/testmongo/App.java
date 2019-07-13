@@ -77,7 +77,17 @@ public class App
         // Close connection
         DBSingleton.getInstance().close();
         */
-        RepoEvent repoEvent = new RepoEvent();
-        repoEvent.GetEvents().forEach(System.out::println);
+//        RepoEvent repoEvent = new RepoEvent();
+//        repoEvent.GetEvents().forEach(System.out::println);
+
+
+        CommentService commentService = new CommentService();
+        commentService.setDate(LocalDate.now());
+        commentService.setMessage("mensaje de servicio 2");
+        commentService.setIdService(new ObjectId("5d1b988b014d311abaa8256d"));
+        RepoCommentService repoCommentService = new RepoCommentService();
+        repoCommentService.saveCommentService(commentService);
+
+        repoCommentService.getAllComments().forEach(System.out::println);
     }
 }

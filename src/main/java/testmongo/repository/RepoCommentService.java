@@ -1,6 +1,7 @@
 package testmongo.repository;
 
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 import org.bson.types.ObjectId;
@@ -10,6 +11,7 @@ import testmongo.adapters.AdapterCommentService;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import static com.mongodb.client.model.Filters.eq;
 
@@ -27,6 +29,28 @@ public class RepoCommentService {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public ArrayList<CommentService> getAllComments() {
+        ArrayList<CommentService> list = new ArrayList<>();
+        try {
+            MongoDatabase database = DBSingleton.getInstance().getConnection();
+            MongoCollection collection = database.getCollection("commentService");
+            MongoCursor<Document> cursor = collection.find().iterator();
+            try {
+                while (cursor.hasNext()) {
+                    CommentService commentEvent = AdapterCommentService.documentToCommentService(cursor.next());
+                    list.add(commentEvent);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                cursor.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 
     public CommentService getCommentServiceById(ObjectId id) {

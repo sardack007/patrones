@@ -1,6 +1,7 @@
 package testmongo.repository;
 
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 import org.bson.types.ObjectId;
@@ -10,6 +11,7 @@ import testmongo.adapters.AdapterCommentEvent;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import static com.mongodb.client.model.Filters.eq;
 
@@ -29,6 +31,28 @@ public class RepoCommentEvent {
         }
     }
 
+    public ArrayList<CommentEvent> getAllComments() {
+        ArrayList<CommentEvent> list = new ArrayList<>();
+        try {
+            MongoDatabase database = DBSingleton.getInstance().getConnection();
+            MongoCollection collection = database.getCollection("commentEvent");
+            MongoCursor<Document> cursor = collection.find().iterator();
+            try {
+                while (cursor.hasNext()) {
+                    CommentEvent commentEvent = AdapterCommentEvent.documentToCommentEvent(cursor.next());
+                    list.add(commentEvent);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                cursor.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
     public CommentEvent getCommentEventById(ObjectId id) {
         CommentEvent commentEvent = new CommentEvent();
         try {
@@ -43,6 +67,7 @@ public class RepoCommentEvent {
         }
         return commentEvent;
     }
+
     public CommentEvent getCommentEventByDate(LocalDate localDate) {
         CommentEvent commentEvent = new CommentEvent();
         try {
@@ -57,6 +82,7 @@ public class RepoCommentEvent {
         }
         return commentEvent;
     }
+
     public CommentEvent getCommentEventByEvent(ObjectId idEvent) {
         CommentEvent commentEvent = new CommentEvent();
         try {
@@ -83,7 +109,7 @@ public class RepoCommentEvent {
         }
     }
 
-    public void deleteCommentEvent(CommentEvent commentEvent){
+    public void deleteCommentEvent(CommentEvent commentEvent) {
         try {
             MongoDatabase database = DBSingleton.getInstance().getConnection();
             MongoCollection collection = database.getCollection("commentEvent");

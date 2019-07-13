@@ -50,4 +50,14 @@ public class CommentService {
     public void setMessage(String message) {
         this.message = message;
     }
+
+    @Override
+    public String toString() {
+        return "CommentService{" +
+                "idCommentService=" + idCommentService +
+                ", idService=" + idService +
+                ", date=" + date +
+                ", message='" + message + '\'' +
+                '}';
+    }
 }
