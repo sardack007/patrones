@@ -5,10 +5,11 @@ import org.bson.types.ObjectId;
 import java.time.LocalDate;
 
 public class CommentService {
-    private Object idCommentService;
+    private ObjectId idCommentService;
     private ObjectId idService;
     private LocalDate date;
     private String message;
+    private ObjectId idPerson;
 
     public CommentService() {
     }
@@ -23,7 +24,7 @@ public class CommentService {
         return idCommentService;
     }
 
-    public void setIdCommentService(Object idCommentService) {
+    public void setIdCommentService(ObjectId idCommentService) {
         this.idCommentService = idCommentService;
     }
 
@@ -51,6 +52,14 @@ public class CommentService {
         this.message = message;
     }
 
+    public ObjectId getIdPerson() {
+        return idPerson;
+    }
+
+    public void setIdPerson(ObjectId idPerson) {
+        this.idPerson = idPerson;
+    }
+
     @Override
     public String toString() {
         return "CommentService{" +
@@ -58,6 +67,7 @@ public class CommentService {
                 ", idService=" + idService +
                 ", date=" + date +
                 ", message='" + message + '\'' +
+                ", idPerson=" + idPerson +
                 '}';
     }
 }

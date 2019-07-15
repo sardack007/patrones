@@ -11,7 +11,8 @@ public class AdapterCommentEvent {
         Document document = new Document();
         document.append("idEvent", commentEvent.getIdEvent())
                 .append("date", Date.valueOf(commentEvent.getDate()))
-                .append("message", commentEvent.getMessage());
+                .append("message", commentEvent.getMessage())
+                .append("idPerson", commentEvent.getIdPerson());
         return document;
     }
     public static CommentEvent documentToCommentEvent(Document document){
@@ -20,6 +21,7 @@ public class AdapterCommentEvent {
         commentEvent.setIdEvent(document.getObjectId("idEvent"));
         commentEvent.setDate(document.getDate("date").toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
         commentEvent.setMessage(document.getString("message"));
+        commentEvent.setIdPerson(document.getObjectId("idPerson"));
         return commentEvent;
     }
 }
