@@ -77,13 +77,13 @@ public class App
         // Close connection
 
         */
-        RepoEvent repoEvent = new RepoEvent();
-        System.out.println("eventos");
-        repoEvent.GetEvents().forEach(System.out::println);
-
-        RepoCommentEvent repoCommentEvent = new RepoCommentEvent();
-        System.out.println("comentarios de eventos");
-        repoCommentEvent.getAllComments().forEach(System.out::println);
+//        RepoEvent repoEvent = new RepoEvent();
+//        System.out.println("eventos");
+//        repoEvent.GetEvents().forEach(System.out::println);
+//
+//        RepoCommentEvent repoCommentEvent = new RepoCommentEvent();
+//        System.out.println("comentarios de eventos");
+//        repoCommentEvent.getAllComments().forEach(System.out::println);
 
 
 //        CommentService commentService = new CommentService();
@@ -93,11 +93,23 @@ public class App
 //        RepoCommentService repoCommentService = new RepoCommentService();
 //        repoCommentService.saveCommentService(commentService);
 
-        RepoCommentService repoCommentService = new RepoCommentService();
-//        repoCommentService.saveCommentService(commentService);
-        System.out.println("comentarios de servicio");
-        repoCommentService.getAllComments().forEach(System.out::println);
+//        RepoCommentService repoCommentService = new RepoCommentService();
+////        repoCommentService.saveCommentService(commentService);
+//        System.out.println("comentarios de servicio");
+//        repoCommentService.getAllComments().forEach(System.out::println);
+//
+        CommentHeadquarter commentHeadquarter = new CommentHeadquarter();
+        commentHeadquarter.setIdHeadquarter(new ObjectId("5d1b988a014d311abaa82566"));
+        commentHeadquarter.setIdPerson(new ObjectId("5d2c118a7d060c18a36d4b42"));
+        commentHeadquarter.setName("renzo");
+        commentHeadquarter.setDate(LocalDate.now());
+        commentHeadquarter.setMessage("Es una sede muy limpia");
 
+
+        RepoCommentsHeadquarter repoCommentsHeadquarter = new RepoCommentsHeadquarter();
+        repoCommentsHeadquarter.saveCommentHeadquarter(commentHeadquarter);
+
+        repoCommentsHeadquarter.getCommentHeadquartersByIdHeadquarter(new ObjectId("5d1b988a014d311abaa82566")).forEach(System.out::println);
         DBSingleton.getInstance().close();
     }
 }
