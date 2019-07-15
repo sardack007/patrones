@@ -12,6 +12,7 @@ public class AdapterCommentEvent {
         document.append("idEvent", commentEvent.getIdEvent())
                 .append("date", Date.valueOf(commentEvent.getDate()))
                 .append("message", commentEvent.getMessage())
+                .append("name", commentEvent.getName())
                 .append("idPerson", commentEvent.getIdPerson());
         return document;
     }
@@ -21,6 +22,7 @@ public class AdapterCommentEvent {
         commentEvent.setIdEvent(document.getObjectId("idEvent"));
         commentEvent.setDate(document.getDate("date").toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
         commentEvent.setMessage(document.getString("message"));
+        commentEvent.setName(document.getString("name"));
         commentEvent.setIdPerson(document.getObjectId("idPerson"));
         return commentEvent;
     }

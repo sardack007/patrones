@@ -12,6 +12,7 @@ public class AdapterCommentService {
         document.append("idService", commentService.getIdService())
                 .append("date", Date.valueOf(commentService.getDate()))
                 .append("message", commentService.getMessage())
+                .append("name", commentService.getName())
                 .append("idPerson", commentService.getIdPerson());
         return document;
     }
@@ -21,6 +22,7 @@ public class AdapterCommentService {
         commentService.setIdService(document.getObjectId("idService"));
         commentService.setDate(document.getDate("date").toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
         commentService.setMessage(document.getString("message"));
+        commentService.setName(document.getString("name"));
         commentService.setIdPerson(document.getObjectId("idPerson"));
         return commentService;
     }
